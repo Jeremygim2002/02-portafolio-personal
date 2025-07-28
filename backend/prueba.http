@@ -1,0 +1,8 @@
+#====== PROYECTOS =====#
+
+### Obtener el nombre de los proyectos
+GET http://localhost:3000/api/proyectos
+
+
+### Obtener el nombre de las tecnologías de un proyecto
+GET http://localhost:3000/api/tecnologias
