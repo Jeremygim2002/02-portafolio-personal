@@ -1,45 +1,56 @@
 import pool from '../config/db.js';
+import { logger } from '../utils/logger.js';
 
 export class ProyectoModel {
-    static async getAll() {
+    static async findAllProjects() {
         try {
-            const result = await pool.query('SELECT p.nombre, ip.nombre_archivo  FROM proyecto p inner join imagen_proyecto ip on ip.id_proyecto = p.id LIMIT 1');
+            const result = await pool.query(`
+            SELECT p.id, p.nombre,
+                   (
+                       SELECT ip.nombre_archivo
+                       FROM imagen_proyecto ip
+                       WHERE ip.id_proyecto = p.id
+                       ORDER BY ip.id ASC
+                       LIMIT 1
+                   ) AS imagen_principal
+            FROM proyecto p
+            ORDER BY p.id;
+        `);
             return result.rows;
         } catch (err) {
-            console.error('Error en ProyectoModel.getall:', err.message);
+            logger.error({ msg: 'Error en ProyectoModel.findAllProjects', error: err });
             throw err;
         }
     }
 
-    static async getById(id) {
+
+    static async findProjectById(id) {
         try {
-            const proyectoResult = await pool.query('SELECT * FROM proyecto WHERE id = $1', [id]);
-            const proyecto = proyectoResult.rows[0];
-            if (!proyecto) return null;
+            const result = await pool.query(`
+            SELECT 
+              p.*,
+              ARRAY(
+                SELECT ip.nombre_archivo 
+                FROM imagen_proyecto ip 
+                WHERE ip.id_proyecto = p.id
+                ORDER BY ip.id
+              ) AS imagenes,
+              ARRAY_AGG(t.nombre) AS tecnologias
+            FROM proyecto p
+            LEFT JOIN proyecto_tecnologia pt ON pt.id_proyecto = p.id
+            LEFT JOIN tecnologia t ON t.id = pt.id_tecnologia
+            WHERE p.id = $1
+            GROUP BY p.id;
+        `, [id]);
 
-            const imagenesResult = await pool.query(
-                'SELECT nombre_archivo FROM imagen_proyecto WHERE id_proyecto = $1',
-                [id]
-            );
-
-            const tecnologiasResult = await pool.query(
-                `SELECT t.nombre
-             FROM tecnologia t
-             INNER JOIN proyecto_tecnologia pt ON t.id = pt.id_tecnologia
-             WHERE pt.id_proyecto = $1`,
-                [id]
-            );
-
-            return {
-                ...proyecto,
-                imagenes: imagenesResult.rows.map(row => row.nombre_archivo),
-                tecnologias: tecnologiasResult.rows.map(row => row.nombre)
-            };
+            const proyecto = result.rows[0];
+            return proyecto ?? null;
 
         } catch (err) {
-            console.error('Error en ProyectoModel.getById:', err.message);
+            logger.error({ msg: 'Error en ProyectoModel.findProjectById', error: err });
             throw err;
         }
     }
+
 
 }

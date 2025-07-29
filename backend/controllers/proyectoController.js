@@ -3,26 +3,26 @@ export class ProyectoController {
         this.proyectoModel = proyectoModel;
     }
 
-    getAll = async (req, res) => {
+    findAllProjects = async (req, res, next) => {
         try {
-            const proyectos = await this.proyectoModel.getAll();
-            res.json(proyectos);
+            const proyectos = await this.proyectoModel.findAllProjects()
+            res.json(proyectos)
         } catch (error) {
-            res.status(500).json({ error: 'Error al obtener proyectos' });
+            next(error)
         }
     }
 
-    getById = async (req, res) => {
-        const { id } = req.params;
+    findProjectById = async (req, res, next) => {
+        const { id } = req.params
         try {
-            const proyecto = await this.proyectoModel.getById(id);
+            const proyecto = await this.proyectoModel.findProjectById(id)
             if (proyecto) {
-                res.json(proyecto);
+                res.json(proyecto)
             } else {
-                res.status(404).json({ error: 'Proyecto no encontrado' });
+                res.status(404).json({ error: 'Proyecto no encontrado' })
             }
         } catch (error) {
-            res.status(500).json({ error: 'Error al obtener el proyecto' });
+            next(error)
         }
     }
 }

@@ -1,27 +1,23 @@
-# Logs
-logs
-*.log
+# dependencias
+/node_modules
+
+# build
+/dist
+
+# entorno
+.env
+.env.*.local
+
+# logs
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
+*.log
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# editor / sistema
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.idea/
+.vscode/
 
-# Environment variables
-.env
+# vite
+*.tsbuildinfo

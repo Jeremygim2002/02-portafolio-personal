@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { logger } from './utils/logger.js';
 dotenv.config();
 
 import { createApp } from './createApp.js';
@@ -14,5 +15,5 @@ const app = createApp({
 });
 
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    logger.info(`Servidor corriendo en http://localhost:${PORT}`);
 });

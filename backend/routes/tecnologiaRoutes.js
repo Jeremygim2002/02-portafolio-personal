@@ -5,7 +5,7 @@ export const createTecnologiaRoutes = ({ tecnologiaModel }) => {
     const router = Router();
     const tecnologiaController = new TecnologiaController({ tecnologiaModel });
 
-    router.get('/', tecnologiaController.getAll);
+    router.get('/', tecnologiaController.findAllTechnologies);
 
     return router;
 }
