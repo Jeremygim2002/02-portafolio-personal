@@ -5,7 +5,7 @@ export class ProyectoModel {
     static async findAllProjects() {
         try {
             const result = await pool.query(`
-            SELECT p.id, p.nombre,
+            SELECT p.id, p.nombre, tp.nombre AS "tipo proyecto",
                    (
                        SELECT ip.nombre_archivo
                        FROM imagen_proyecto ip
@@ -13,7 +13,7 @@ export class ProyectoModel {
                        ORDER BY ip.id ASC
                        LIMIT 1
                    ) AS imagen_principal
-            FROM proyecto p
+            FROM proyecto p inner join tipo_proyecto tp on p.id_tipo = tp.id
             ORDER BY p.id;
         `);
             return result.rows;
