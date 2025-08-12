@@ -9,6 +9,11 @@ import Loader from "@components/common/Loader";
 import Tarjeta from "@components/ui/Tarjeta";
 import InfoItem from "@components/ui/InfoItem";
 
+const imagenesPortafolio = import.meta.glob(
+  "/src/assets/img/portafolio/*.{jpg,jpeg,png,svg,webp}",
+  { eager: true, import: "default" }
+);
+
 export default function DescripcionProyecto() {
   const { id } = useParams();
   const [proyecto, setProyecto] = useState(null);
@@ -66,15 +71,24 @@ export default function DescripcionProyecto() {
               stopOnHover
               swipeable
             >
-              {proyecto.imagenes.map((img, idx) => (
-                <div key={idx}>
-                  <img
-                    src={`/src/assets/img/portafolio/${img}`}
-                    alt={`Imagen ${idx + 1}`}
-                    className="w-full object-cover"
-                  />
-                </div>
-              ))}
+              {proyecto.imagenes.map((img, idx) => {
+                const path = Object.keys(imagenesPortafolio).find((key) =>
+                  key.includes(img)
+                );
+                const src = path
+                  ? imagenesPortafolio[path]
+                  : "/placeholder.svg";
+
+                return (
+                  <div key={idx}>
+                    <img
+                      src={src}
+                      alt={`Imagen ${idx + 1}`}
+                      className="w-full object-cover"
+                    />
+                  </div>
+                );
+              })}
             </Carousel>
           </div>
 
