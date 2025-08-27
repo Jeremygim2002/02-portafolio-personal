@@ -11,9 +11,21 @@ export const createApp = ({ proyectoModel, tecnologiaModel }) => {
     
     app.disable('x-powered-by');
     app.use(corsMiddleware);
-    // Compresión gzip/brotli para texto: HTML, JS, CSS, JSON
+    
     app.use(compression());
     app.use(express.json());
+
+    app.get('/', (req, res) => {
+        res.json({
+            message: 'API Portafolio Jeremy Rosas',
+            version: '1.0.0',
+            endpoints: {
+                proyectos: '/api/proyectos',
+                tecnologias: '/api/tecnologias'
+            },
+            status: 'online'
+        });
+    });
 
     app.use('/api/proyectos', createProyectoRoutes({ proyectoModel }));
     app.use('/api/tecnologias', createTecnologiaRoutes({ tecnologiaModel }));
