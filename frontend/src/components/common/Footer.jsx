@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import useGsapScrollFadeUp from "@hooks/useGsapScrollFadeUp";
 import { BsLinkedin, BsGithub, BsWhatsapp, BsEnvelope } from "react-icons/bs";
-import logo from "@assets/img/logo.jpg";
+import logo from "@assets/img/logo.webp";
 import LayoutWrapper from "@components/common/LayoutWrapper";
 
 export default function Footer() {
@@ -18,8 +18,10 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-center">
           <img
             src={logo}
-            alt="Logo del portafolio"
+            alt="Logo del portafolio de Jeremy Rosas"
             className="w-20 h-20 rounded-full p-[3px] transition-transform duration-300 hover:scale-110 mb-5"
+            loading="lazy"
+            decoding="async"
           />
           <p className="text-contrast text-lg font-default px-4 mb-5 leading-relaxed">
             Aprendo y creo todos los días.
@@ -33,6 +35,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="icon-btn"
+              aria-label="LinkedIn de Jeremy Rosas"
             >
               <BsLinkedin />
             </a>
@@ -42,6 +45,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="icon-btn"
+              aria-label="GitHub de Jeremy Rosas"
             >
               <BsGithub />
             </a>
@@ -51,11 +55,12 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="icon-btn"
+              aria-label="WhatsApp de contacto"
             >
               <BsWhatsapp />
             </a>
 
-            <a href="mailto:jremygim.2002@gmail.com" className="icon-btn">
+            <a href="mailto:jremygim.2002@gmail.com" className="icon-btn" aria-label="Enviar correo a Jeremy Rosas">
               <BsEnvelope />
             </a>
           </div>

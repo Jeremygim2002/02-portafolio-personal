@@ -19,7 +19,7 @@
 @layer base {
   body {
     @apply font-default bg-background text-default;
-    
+
   }
 
   a {
@@ -30,9 +30,7 @@
 
 @layer components {
   .icon-btn {
-    @apply w-12 h-12 flex items-center justify-center rounded-full border-2 border-heading 
-           transition-all duration-300 hover:bg-heading hover:scale-110 
-           text-contrast hover:text-background text-2xl;
+    @apply w-12 h-12 flex items-center justify-center rounded-full border-2 border-heading transition-all duration-300 hover:bg-heading hover:scale-110 text-contrast hover:text-background text-2xl;
   }
 }
 
@@ -41,6 +39,7 @@
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -55,9 +54,11 @@
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-15px);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -65,4 +66,15 @@
 
 .animate-up-down {
   animation: up-down 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-up-down {
+    animation: none;
+  }
+}
+
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1000px;
 }

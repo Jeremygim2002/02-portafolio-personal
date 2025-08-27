@@ -11,7 +11,7 @@ export default function SobreMi() {
     <section
       ref={ref}
       id="sobre"
-      className="w-full bg-background py-24 text-center"
+      className="w-full bg-background py-24 text-center cv-auto"
     >
       <LayoutWrapper>
         <Titulo subtitulo="Sobre mi">Sobre mi</Titulo>

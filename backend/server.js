@@ -1,9 +1,8 @@
 import dotenv from 'dotenv';
-import { logger } from './utils/logger.js';
 dotenv.config();
 
+import { logger } from './utils/logger.js';
 import { createApp } from './createApp.js';
-
 import { ProyectoModel } from './models/proyectoModel.js';
 import { TecnologiaModel } from './models/tecnologiaModel.js';
 

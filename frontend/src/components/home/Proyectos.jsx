@@ -2,9 +2,9 @@ import { useState } from "react";
 import Titulo from "@components/common/Titulo";
 import LayoutWrapper from "@components/common/LayoutWrapper";
 import Masonry from "react-masonry-css";
-import Lightbox from "yet-another-react-lightbox";
+import { Suspense, lazy } from "react";
+const Lightbox = lazy(() => import("yet-another-react-lightbox"));
 import "yet-another-react-lightbox/styles.css";
-import { Zoom } from "yet-another-react-lightbox/plugins";
 import { BsLink45Deg, BsZoomIn } from "react-icons/bs";
 import useFetch from "@hooks/useFetch";
 import FiltroTabs from "@components/common/FiltroTabs";
@@ -31,7 +31,15 @@ const breakpointColumnsObj = {
 };
 
 const getImageSrc = (fileName) => {
-  const ruta = Object.keys(imagenes).find((k) => k.includes(fileName));
+  if (!fileName) return "/placeholder.svg";
+  const base = fileName.replace(/\.[^/.]+$/, "");
+  const basePath = `/src/assets/img/portafolio/`;
+  const exts = ["webp", "jpg", "jpeg", "png", "svg"];
+  for (const ext of exts) {
+    const key = `${basePath}${base}.${ext}`;
+    if (imagenes[key]) return imagenes[key];
+  }
+  const ruta = Object.keys(imagenes).find((k) => k.includes(`/${base}.`));
   return ruta ? imagenes[ruta] : "/placeholder.svg";
 };
 
@@ -43,9 +51,21 @@ export default function Proyectos() {
   const navigate = useNavigate();
   const { data: proyectos, loading, error } = useFetch(obtenerProyectos);
 
-  // 🔹 Si está cargando desde la API o cargando detalle, mostramos Loader
   if (loading || cargandoDetalle) return <Loader />;
-  if (error) return <p className="text-red-500">Error cargando proyectos</p>;
+  if (error)
+    return (
+      <section
+        id="proyectos"
+        className="w-full bg-background py-24 text-center"
+      >
+        <LayoutWrapper>
+          <Titulo subtitulo="Portafolio">Portafolio</Titulo>
+          <p className="text-red-400" role="alert">
+            No se pudieron cargar los proyectos. Intenta nuevamente más tarde.
+          </p>
+        </LayoutWrapper>
+      </section>
+    );
 
   const proyectosFiltrados =
     filtro === "*"
@@ -55,7 +75,7 @@ export default function Proyectos() {
   return (
     <section
       id="proyectos"
-      className="w-full bg-background py-24 text-center scroll-mt-24"
+      className="w-full bg-background py-24 text-center scroll-mt-24 cv-auto"
     >
       <LayoutWrapper>
         <div className="mb-12" data-aos="fade-up">
@@ -85,6 +105,11 @@ export default function Proyectos() {
                       src={getImageSrc(imagen_principal)}
                       alt={nombre}
                       className="w-full h-full object-cover cursor-pointer transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                      width="800"
+                      height="600"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       onClick={() => setLightboxIndex(index)}
                     />
 
@@ -97,6 +122,7 @@ export default function Proyectos() {
                           onClick={() => setLightboxIndex(index)}
                           className="hover:text-accent transition-colors duration-300"
                           title="Ver imagen"
+                          aria-label={`Ampliar imagen de ${nombre}`}
                         >
                           <BsZoomIn />
                         </button>
@@ -107,6 +133,7 @@ export default function Proyectos() {
                           }}
                           className="hover:text-accent transition-colors duration-300"
                           title="Ver proyecto"
+                          aria-label={`Ir al detalle del proyecto ${nombre}`}
                         >
                           <BsLink45Deg />
                         </button>
@@ -120,15 +147,19 @@ export default function Proyectos() {
         </div>
       </LayoutWrapper>
 
-      <Lightbox
-        open={lightboxIndex >= 0}
-        index={lightboxIndex}
-        close={() => setLightboxIndex(-1)}
-        slides={proyectosFiltrados.map(({ imagen_principal }) => ({
-          src: getImageSrc(imagen_principal),
-        }))}
-        plugins={[Zoom]}
-      />
+      <Suspense>
+        {lightboxIndex >= 0 && (
+          <Lightbox
+            open
+            index={lightboxIndex}
+            close={() => setLightboxIndex(-1)}
+            slides={proyectosFiltrados.map(({ imagen_principal }) => ({
+              src: getImageSrc(imagen_principal),
+            }))}
+            plugins={[]}
+          />
+        )}
+      </Suspense>
     </section>
   );
 }

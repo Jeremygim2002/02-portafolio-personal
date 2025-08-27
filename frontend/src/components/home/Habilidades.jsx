@@ -18,13 +18,20 @@ export default function Habilidades() {
   useGsapScrollFadeUp(ref);
 
   if (loading) return <Loader />;
-  if (error) return <p className="text-red-500">Error cargando habilidades</p>;
+  if (error) return (
+    <section id="habilidades" className="w-full bg-background py-24 text-center">
+      <LayoutWrapper>
+        <Titulo subtitulo="Habilidades">Habilidades</Titulo>
+        <p className="text-red-400" role="alert">No se pudieron cargar las habilidades. Intenta nuevamente más tarde.</p>
+      </LayoutWrapper>
+    </section>
+  );
 
   return (
     <section
       ref={ref}
       id="habilidades"
-      className="w-full bg-background py-24 text-center"
+      className="w-full bg-background py-24 text-center cv-auto"
     >
       <LayoutWrapper>
         <Titulo subtitulo="Habilidades">Habilidades</Titulo>
@@ -46,6 +53,10 @@ export default function Habilidades() {
                     src={src}
                     alt={nombre}
                     className="w-[80px] h-auto max-md:w-[45px] transition-transform duration-300 ease-in-out"
+                    loading="lazy"
+                    decoding="async"
+                    width="80"
+                    height="80"
                   />
                   <span className="mt-1 text-sm max-md:text-xs text-contrast opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-default">
                     {nombre}

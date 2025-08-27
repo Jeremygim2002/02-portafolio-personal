@@ -14,6 +14,19 @@ const imagenesPortafolio = import.meta.glob(
   { eager: true, import: "default" }
 );
 
+const getPortfolioSrc = (fileName) => {
+  if (!fileName) return "/placeholder.svg";
+  const base = fileName.replace(/\.[^/.]+$/, "");
+  const basePath = `/src/assets/img/portafolio/`;
+  const exts = ["webp", "jpg", "jpeg", "png", "svg"]; 
+  for (const ext of exts) {
+    const key = `${basePath}${base}.${ext}`;
+    if (imagenesPortafolio[key]) return imagenesPortafolio[key];
+  }
+  const ruta = Object.keys(imagenesPortafolio).find((k) => k.includes(`/${base}.`));
+  return ruta ? imagenesPortafolio[ruta] : "/placeholder.svg";
+};
+
 export default function DescripcionProyecto() {
   const { id } = useParams();
   const [proyecto, setProyecto] = useState(null);
@@ -72,19 +85,17 @@ export default function DescripcionProyecto() {
               swipeable
             >
               {proyecto.imagenes.map((img, idx) => {
-                const path = Object.keys(imagenesPortafolio).find((key) =>
-                  key.includes(img)
-                );
-                const src = path
-                  ? imagenesPortafolio[path]
-                  : "/placeholder.svg";
-
+                const src = getPortfolioSrc(img);
                 return (
                   <div key={idx}>
                     <img
                       src={src}
-                      alt={`Imagen ${idx + 1}`}
+                      alt={`Imagen del proyecto ${proyecto?.nombre || ''} (${idx + 1})`}
                       className="w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      width="1200"
+                      height="800"
                     />
                   </div>
                 );

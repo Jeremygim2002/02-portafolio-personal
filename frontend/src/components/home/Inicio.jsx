@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { BsLinkedin } from "react-icons/bs";
 import useGsapScrollFadeUp from "@hooks/useGsapScrollFadeUp";
-import heroImage from "@assets/img/img_1.png";
+import heroImage from "@assets/img/img_1.webp";
+// Buscar variantes responsivas si existen (ej: img_1-350.webp, img_1-700.webp, img_1-1200.webp)
+const heroVariants = import.meta.glob("/src/assets/img/img_1-*.webp", { eager: true, import: "default" });
 import LayoutWrapper from "@components/common/LayoutWrapper";
 
 export default function Inicio() {
@@ -10,6 +12,35 @@ export default function Inicio() {
 
   useGsapScrollFadeUp(textRef, 0.1);
   useGsapScrollFadeUp(imageRef, 0.1);
+
+  // Construir srcSet a partir de las variantes disponibles
+  const { srcSetStr, sizesStr } = useMemo(() => {
+    const pairs = Object.entries(heroVariants)
+      .map(([key, url]) => {
+        const m = key.match(/img_1-(\d+)\.webp$/);
+        return m ? { w: Number(m[1]), url } : null;
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.w - b.w);
+
+    const srcSet = pairs.map((p) => `${p.url} ${p.w}w`).join(", ");
+    const sizes = "(min-width: 1024px) 350px, (min-width: 768px) 320px, 90vw";
+    return { srcSetStr: srcSet || undefined, sizesStr: sizes };
+  }, []);
+
+  
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = heroImage;
+    if (srcSetStr) link.setAttribute("imagesrcset", srcSetStr);
+    link.setAttribute("imagesizes", sizesStr);
+    document.head.appendChild(link);
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, [srcSetStr, sizesStr]);
 
   return (
     <section
@@ -25,9 +56,6 @@ export default function Inicio() {
             <h1 className="font-heading text-heading text-4xl md:text-5xl font-bold leading-tight mb-3">
               Jeremy Rosas
             </h1>
-            <h2 className="font-heading text-heading text-2xl md:text-3xl font-semibold mb-5">
-              Full Stack Developer
-            </h2>
             <p className="text-texto-tercero text-lg md:text-xl font-normal leading-relaxed mb-8 max-w-xl">
                 🚀 Transformo ideas en experiencias digitales. Con una combinación
               de creatividad, estrategia y precisión técnica, desarrollo
@@ -62,6 +90,11 @@ export default function Inicio() {
               src={heroImage}
               alt="Jeremy Rosas"
               className="w-[90%] max-w-[350px] md:max-w-md h-auto animate-up-down"
+              width="700"
+              height="700"
+              fetchPriority="high"
+              sizes={sizesStr}
+              srcSet={srcSetStr}
             />
           </div>
         </div>

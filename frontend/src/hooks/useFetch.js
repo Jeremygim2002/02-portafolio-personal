@@ -7,14 +7,15 @@ export default function useFetch(serviceFn) {
 
   useEffect(() => {
     let isMounted = true;
+    const controller = new AbortController();
     const fetch = async () => {
       try {
-        const res = await serviceFn();
+        const res = await serviceFn({ signal: controller.signal });
         if (isMounted) {
           setData(Array.isArray(res) ? res : []); 
         }
       } catch (err) {
-        if (isMounted) setError(err);
+        if (isMounted && err.name !== 'AbortError') setError(err);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -22,6 +23,7 @@ export default function useFetch(serviceFn) {
     fetch();
     return () => {
       isMounted = false;
+      controller.abort();
     };
   }, [serviceFn]);
 

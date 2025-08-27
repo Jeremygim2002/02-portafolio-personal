@@ -53,6 +53,7 @@ export default function Navbar() {
         scrolled ? "shadow-md" : ""
       } bg-background`}
     >
+  <a href="#main" className="sr-only focus:not-sr-only fixed left-3 top-3 bg-accent text-contrast px-3 py-2 rounded z-[1000]">Saltar al contenido</a>
       <LayoutWrapper>
         <div className="py-5 md:py-6 flex justify-between items-center">
           <Link
@@ -72,13 +73,14 @@ export default function Navbar() {
             </button>
           </div>
 
-          <nav className="font-heading font-semibold hidden md:flex gap-8 text-nav items-center">
+          <nav className="font-heading font-semibold hidden md:flex gap-8 text-nav items-center" aria-label="Navegación principal">
             {links.map(({ href, label }) => (
               <a
                 key={href}
                 href={href}
                 className="hover:text-nav-hover transition-colors"
                 onClick={(e) => handleAnchorClick(e, href)}
+                aria-current={location.hash === `#${href.replace('/#','')}` ? 'page' : undefined}
               >
                 {label}
               </a>
@@ -87,6 +89,7 @@ export default function Navbar() {
               href={footerLink}
               onClick={(e) => handleAnchorClick(e, footerLink)}
               className="hidden md:inline-block bg-accent text-contrast px-6 py-2 rounded-full text-sm font-heading hover:bg-opacity-90 transition"
+              aria-label="Ir a la sección de contacto"
             >
               Contacto
             </a>
