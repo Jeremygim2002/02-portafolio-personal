@@ -64,44 +64,18 @@ portafolio-personal-moderno/
 └── README.md
 ```
 
-## Instalación
+---
 
-```bash
-# Clonar repositorio
-git clone https://github.com/Jeremygim2002/02-portafolio-personal.git
-cd portafolio-personal-moderno
+## Características
 
-# Backend
-cd backend
-npm install
-cp .env.example .env
-npm run dev
-
-# Frontend
-cd ../frontend
-npm install
-echo "VITE_API_URL=http://localhost:3000" > .env
-npm run dev
-```
-
-## Scripts
-
-### Backend
-```bash
-npm run dev          # Desarrollo
-npm start            # Producción
-npm test             # Testing
-npm run test:watch   # Testing modo watch
-```
-
-### Frontend
-```bash
-npm run dev          # Desarrollo
-npm run build        # Build producción
-npm run preview      # Preview build
-npm run lint         # ESLint
-```
-
+- ✨ Diseño responsive con animaciones GSAP
+- 🚀 Optimizado para rendimiento (lazy loading, code splitting)
+- 🎨 Interfaz moderna con TailwindCSS
+- 🔍 SEO optimizado con meta tags
+- ♿ Accesibilidad implementada
+- 🖼️ Galería de proyectos con lightbox
+- 📱 Compatible con todos los dispositivos
+- 🗃️ API REST con validaciones
 
 ## Contacto
 
