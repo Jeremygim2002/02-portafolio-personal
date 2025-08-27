@@ -1,17 +1,11 @@
-# Portafolio Personal - Jeremy Rosas
+# 🚀 Portafolio Personal - Jeremy Rosas
 
 ![License](https://img.shields.io/badge/license-MIT-green) ![React](https://img.shields.io/badge/React-19.1.0-blue) ![TailwindCSS](https://img.shields.io/badge/Tailwind-4.1.11-purple) ![Node.js](https://img.shields.io/badge/Node.js-18-green) ![Express](https://img.shields.io/badge/Express-5.1.0-yellow) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
 
----
 
 ## Descripción
 
-Este proyecto es un portafolio personal desarrollado con tecnologías modernas que muestra habilidades, proyectos y datos personales de mi persona. 
-
-Está dividido en frontend y backend, usando React 19 y Tailwind CSS para la interfaz, y Express 5 junto a PostgreSQL para la API y gestión de datos.
-
-Incluye animaciones con GSAP, manejo de rutas y scroll suave con React Router y GSAP ScrollToPlugin, y un backend REST API con validación y control de errores.
-
+Portafolio personal moderno con React 19, TailwindCSS 4, Express 5 y PostgreSQL. Optimizado para rendimiento, accesibilidad y SEO.
 ---
 
 ## Tecnologías usadas
@@ -20,66 +14,98 @@ Incluye animaciones con GSAP, manejo de rutas y scroll suave con React Router y 
 
 - React 19.1.0
 - React Router DOM 7.7.1
-- Tailwind CSS 4.1.11
+- TailwindCSS 4.1.11
 - GSAP 3.13.0
-- React Hooks personalizados (`useGsapScrollFadeUp`, `useHashScroll`, `useScrollTriggerState`, `useFetch`)
-- Vite 7.0.4 para bundling
-- Librerías adicionales:
-  - `react-icons`
-  - `react-masonry-css`
-  - `react-responsive-carousel`
-  - `yet-another-react-lightbox`
-  - Fuentes: `@fontsource-variable/montserrat`, `@fontsource/poppins`
+- Vite 7.0.4
+- react-masonry-css
+- react-responsive-carousel
+- yet-another-react-lightbox
+- react-icons
+- @fontsource-variable/montserrat
+- @fontsource/poppins
 
 ### Backend
 
-- Node.js 18 (con `"type": "module"`)
+- Node.js 18+ (ESM)
 - Express 5.1.0
-- PostgreSQL 15 con `pg` para conexión
-- Middleware para CORS, manejo de errores y validación con Zod
-- Logger con Pino y Pino Pretty
-- Estructura MVC con controladores, modelos, rutas y esquemas de validación
-- Scripts para desarrollo con Nodemon
-- Testing con Vitest
+- PostgreSQL 15
+- Zod 4.0.13
+- Pino 9.7.0
+- Vitest 3.2.4
+- Compression 1.7.5
 
 ---
 
 ## Estructura del proyecto
 
-backend/
-│
-├── config/
-├── controllers/
-├── middlewares/
-├── models/
-├── routes/
-├── schemas/
-├── tests/
-├── utils/
-├── .env
-├── createApp.js
-└── server.js
+```
+portafolio-personal-moderno/
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── schemas/
+│   ├── tests/
+│   ├── utils/
+│   ├── createApp.js
+│   └── server.js
+├── frontend/
+│   ├── public/
+│   └── src/
+│       ├── assets/img/
+│       ├── components/
+│       ├── hooks/
+│       ├── pages/
+│       ├── services/
+│       ├── App.jsx
+│       └── main.jsx
+└── README.md
+```
 
-src/
-├── assets/
-│ └── img/
-├── components/
-│ ├── common/
-│ ├── home/
-│ ├── detalleProyecto/
-│ ├── layouts/
-│ └── ui/
-├── hooks/
-│ ├── useFetch.js
-│ ├── useGsapScrollFadeUp.js
-│ ├── useHashScroll.js
-│ └── useScrollTriggerState.js
-├── pages/
-│ ├── PaginaHome.jsx
-│ ├── PaginaDetalleProyecto.jsx
-│ └── PaginaNoEnconmtrada.jsx
-├── services/
-├── App.jsx
-├── main.jsx
-├── .env
-└── index.css
+## Instalación
+
+```bash
+# Clonar repositorio
+git clone https://github.com/Jeremygim2002/02-portafolio-personal.git
+cd portafolio-personal-moderno
+
+# Backend
+cd backend
+npm install
+cp .env.example .env
+npm run dev
+
+# Frontend
+cd ../frontend
+npm install
+echo "VITE_API_URL=http://localhost:3000" > .env
+npm run dev
+```
+
+## Scripts
+
+### Backend
+```bash
+npm run dev          # Desarrollo
+npm start            # Producción
+npm test             # Testing
+npm run test:watch   # Testing modo watch
+```
+
+### Frontend
+```bash
+npm run dev          # Desarrollo
+npm run build        # Build producción
+npm run preview      # Preview build
+npm run lint         # ESLint
+```
+
+
+## Contacto
+
+**Jeremy Rosas**
+- GitHub: [@Jeremygim2002](https://github.com/Jeremygim2002)
+- LinkedIn: [jeremy-rosas](https://www.linkedin.com/in/jeremy-rosas/)
+- Email: jremygim.2002@gmail.com
