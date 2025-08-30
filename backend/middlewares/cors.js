@@ -3,7 +3,7 @@ import cors from 'cors';
 const ACCEPTED_ORIGINS = new Set([
     'http://localhost:3000',
     'http://localhost:5173',
-    'https://02-portafolio-personal-frontend.vercel.app/'
+    'https://02-portafolio-personal-frontend.vercel.app'
 ]);
 
 export const corsMiddleware = cors({
