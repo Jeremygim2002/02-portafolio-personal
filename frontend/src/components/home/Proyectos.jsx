@@ -18,7 +18,6 @@ const imagenes = import.meta.glob(
 );
 
 const filtros = [
-  { label: "Todos", value: "*" },
   { label: "Full stack", value: "Full Stack" },
   { label: "Front end", value: "Front End" },
 ];
