@@ -121,14 +121,14 @@ export default function DescripcionProyecto() {
                     value="Ver repositorio"
                     link={proyecto.repositorio}
                   />
-                )}
+                )} */}
                 {proyecto.link && (
                   <InfoItem
                     label="Demo"
                     value="Ver demo"
                     link={proyecto.link}
                   />
-                )} */}
+                )}
               </ul>
             </Tarjeta>
 
