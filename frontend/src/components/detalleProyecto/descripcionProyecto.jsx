@@ -115,7 +115,7 @@ export default function DescripcionProyecto() {
                 <InfoItem label="Nombre" value={proyecto.nombre} />
                 <InfoItem label="Categoría" value={proyecto.categoria} />
                 <InfoItem label="Duración" value={proyecto.duracion} />
-                {proyecto.repositorio && (
+                {/* {proyecto.repositorio && (
                   <InfoItem
                     label="Repositorio"
                     value="Ver repositorio"
@@ -128,7 +128,7 @@ export default function DescripcionProyecto() {
                     value="Ver demo"
                     link={proyecto.link}
                   />
-                )}
+                )} */}
               </ul>
             </Tarjeta>
 
