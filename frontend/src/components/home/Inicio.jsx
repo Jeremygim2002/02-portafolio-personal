@@ -60,7 +60,7 @@ export default function Inicio() {
                 🚀 Transformo ideas en experiencias digitales. Con una combinación
               de creatividad, estrategia y precisión técnica, desarrollo
               soluciones que no solo funcionan, sino que destacan. Siempre en
-              busca de la próxima innovación.
+              busca de la próxima innovaciónn.
             </p>
 
             <div className="flex items-center gap-6">
