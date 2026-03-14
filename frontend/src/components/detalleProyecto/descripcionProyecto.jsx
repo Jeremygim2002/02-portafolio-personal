@@ -16,13 +16,9 @@ const imagenesPortafolio = import.meta.glob(
 
 const getPortfolioSrc = (fileName) => {
   if (!fileName) return "/placeholder.svg";
+  if (fileName.startsWith("http")) return fileName;
+
   const base = fileName.replace(/\.[^/.]+$/, "");
-  const basePath = `/src/assets/img/portafolio/`;
-  const exts = ["webp", "jpg", "jpeg", "png", "svg"]; 
-  for (const ext of exts) {
-    const key = `${basePath}${base}.${ext}`;
-    if (imagenesPortafolio[key]) return imagenesPortafolio[key];
-  }
   const ruta = Object.keys(imagenesPortafolio).find((k) => k.includes(`/${base}.`));
   return ruta ? imagenesPortafolio[ruta] : "/placeholder.svg";
 };
@@ -65,11 +61,7 @@ export default function DescripcionProyecto() {
   if (cargando) return <Loader />;
 
   return (
-    <section
-      ref={ref}
-      id="portfolio-details"
-      className="w-full bg-background py-24"
-    >
+    <section ref={ref} id="portfolio-details" className="w-full bg-background py-24">
       <LayoutWrapper>
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="lg:w-2/3">
@@ -84,22 +76,17 @@ export default function DescripcionProyecto() {
               stopOnHover
               swipeable
             >
-              {proyecto.imagenes.map((img, idx) => {
-                const src = getPortfolioSrc(img);
-                return (
-                  <div key={idx}>
-                    <img
-                      src={src}
-                      alt={`Imagen del proyecto ${proyecto?.nombre || ''} (${idx + 1})`}
-                      className="w-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                      width="1200"
-                      height="800"
-                    />
-                  </div>
-                );
-              })}
+              {proyecto.imagenes.map((img, idx) => (
+                <div key={idx}>
+                  <img
+                    src={getPortfolioSrc(img)}
+                    alt={`Imagen del proyecto ${proyecto?.nombre || ''} (${idx + 1})`}
+                    className="w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
             </Carousel>
           </div>
 
@@ -115,13 +102,6 @@ export default function DescripcionProyecto() {
                 <InfoItem label="Nombre" value={proyecto.nombre} />
                 <InfoItem label="Categoría" value={proyecto.categoria} />
                 <InfoItem label="Duración" value={proyecto.duracion} />
-                {/* {proyecto.repositorio && (
-                  <InfoItem
-                    label="Repositorio"
-                    value="Ver repositorio"
-                    link={proyecto.repositorio}
-                  />
-                )} */}
                 {proyecto.link && (
                   <InfoItem
                     label="Demo"
@@ -138,7 +118,7 @@ export default function DescripcionProyecto() {
                   {proyecto.tecnologias.map((tec, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1.5 rounded-full bg-accent text-white text-xs font-medium shadow-sm hover:scale-105 transition-transform duration-200"
+                      className="px-3 py-1.5 rounded-full bg-accent text-white text-xs font-medium shadow-sm"
                     >
                       {tec}
                     </span>
