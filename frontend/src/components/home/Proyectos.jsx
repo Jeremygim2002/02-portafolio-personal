@@ -31,14 +31,14 @@ const breakpointColumnsObj = {
 
 const getImageSrc = (fileName) => {
   if (!fileName) return "/placeholder.svg";
+
+  // Si es una URL externa (S3), se devuelve directamente
+  if (fileName.startsWith("http")) return fileName;
+
+  // Lógica para imágenes locales (import.meta.glob)
   const base = fileName.replace(/\.[^/.]+$/, "");
-  const basePath = `/src/assets/img/portafolio/`;
-  const exts = ["webp", "jpg", "jpeg", "png", "svg"];
-  for (const ext of exts) {
-    const key = `${basePath}${base}.${ext}`;
-    if (imagenes[key]) return imagenes[key];
-  }
   const ruta = Object.keys(imagenes).find((k) => k.includes(`/${base}.`));
+  
   return ruta ? imagenes[ruta] : "/placeholder.svg";
 };
 

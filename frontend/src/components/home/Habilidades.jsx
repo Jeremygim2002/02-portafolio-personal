@@ -17,53 +17,50 @@ export default function Habilidades() {
 
   useGsapScrollFadeUp(ref);
 
+  // Función para determinar el origen de la imagen (S3 o Local)
+  const getIconSrc = (slug) => {
+    if (!slug) return "/placeholder.svg";
+    
+    // Si el slug es una URL (S3), retornarla directamente
+    if (slug.startsWith("http")) return slug;
+
+    // Si es un nombre de archivo, buscar en local
+    const path = Object.keys(imagenes).find((key) =>
+      key.includes(`/${slug}.`)
+    );
+    return path ? imagenes[path] : "/placeholder.svg";
+  };
+
   if (loading) return <Loader />;
   if (error) return (
     <section id="habilidades" className="w-full bg-background py-24 text-center">
       <LayoutWrapper>
         <Titulo subtitulo="Habilidades">Habilidades</Titulo>
-        <p className="text-red-400" role="alert">No se pudieron cargar las habilidades. Intenta nuevamente más tarde.</p>
+        <p className="text-red-400" role="alert">No se pudieron cargar las habilidades.</p>
       </LayoutWrapper>
     </section>
   );
 
   return (
-    <section
-      ref={ref}
-      id="habilidades"
-      className="w-full bg-background py-24 text-center cv-auto"
-    >
+    <section ref={ref} id="habilidades" className="w-full bg-background py-24 text-center cv-auto">
       <LayoutWrapper>
         <Titulo subtitulo="Habilidades">Habilidades</Titulo>
-
         <div className="mt-12">
           <div className="flex flex-wrap justify-center gap-[50px] max-md:gap-[15px]">
-            {tecnologias.map(({ id, slug, nombre }) => {
-              const path = Object.keys(imagenes).find((key) =>
-                key.includes(`/${slug}.`)
-              );
-              const src = path ? imagenes[path] : "/placeholder.svg";
-
-              return (
-                <div
-                  key={id}
-                  className="group flex flex-col items-center transition-transform duration-300 ease-in-out hover:scale-110"
-                >
-                  <img
-                    src={src}
-                    alt={nombre}
-                    className="w-[80px] h-auto max-md:w-[45px] transition-transform duration-300 ease-in-out"
-                    loading="lazy"
-                    decoding="async"
-                    width="80"
-                    height="80"
-                  />
-                  <span className="mt-1 text-sm max-md:text-xs text-contrast opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-default">
-                    {nombre}
-                  </span>
-                </div>
-              );
-            })}
+            {tecnologias.map(({ id, slug, nombre }) => (
+              <div key={id} className="group flex flex-col items-center transition-transform duration-300 hover:scale-110">
+                <img
+                  src={getIconSrc(slug)}
+                  alt={nombre}
+                  className="w-[80px] h-auto max-md:w-[45px]"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="mt-1 text-sm max-md:text-xs text-contrast opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {nombre}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </LayoutWrapper>
