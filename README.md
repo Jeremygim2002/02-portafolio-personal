@@ -68,14 +68,14 @@ portafolio-personal-moderno/
 
 ## Características
 
-- ✨ Diseño responsive con animaciones GSAP
-- 🚀 Optimizado para rendimiento (lazy loading, code splitting)
-- 🎨 Interfaz moderna con TailwindCSS
-- 🔍 SEO optimizado con meta tags
-- ♿ Accesibilidad implementada
-- 🖼️ Galería de proyectos con lightbox
-- 📱 Compatible con todos los dispositivos
-- 🗃️ API REST con validaciones
+-  Diseño responsive con animaciones GSAP
+-  Optimizado para rendimiento (lazy loading, code splitting)
+-  Interfaz moderna con TailwindCSS
+-  SEO optimizado con meta tags
+-  Accesibilidad implementada
+-  Galería de proyectos con lightbox
+-  Compatible con todos los dispositivos
+-  API REST con validaciones
 
 ## Contacto
 
