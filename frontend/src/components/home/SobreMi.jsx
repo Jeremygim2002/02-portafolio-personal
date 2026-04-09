@@ -17,13 +17,7 @@ export default function SobreMi() {
         <Titulo subtitulo="Sobre mi">Sobre mi</Titulo>
         <div className="mx-auto mt-8">
           <p className="font-default text-texto-tercero text-lg leading-relaxed mb-8">
-             ¡Soy Jeremy! 🚀 un apasionado del desarrollo full stack y estudiante
-            de Ingeniería de Sistemas, especializado en la creación de
-            aplicaciones web eficientes y escalables. Me motiva la resolución de
-            problemas y la optimización de procesos, siempre explorando nuevas
-            tecnologías para mejorar cada proyecto. Cuando no estoy programando,
-            disfruto correr con mi mascota y mantenerme al día con las últimas
-            tendencias tecnológicas.
+Soy estudiante de séptimo ciclo de Ingeniería de Sistemas con experiencia en la construcción de soluciones de software a medida y la gestión de infraestructura tecnológica. Mi enfoque profesional combina el desarrollo de aplicaciones robustas con el análisis avanzado de datos para potenciar la toma de decisiones empresariales.
           </p>
         </div>
       </LayoutWrapper>

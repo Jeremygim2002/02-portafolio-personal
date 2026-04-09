@@ -57,10 +57,7 @@ export default function Inicio() {
               Jeremy Rosas
             </h1>
             <p className="text-texto-tercero text-lg md:text-xl font-normal leading-relaxed mb-8 max-w-xl">
-                🚀 Transformo ideas en experiencias digitales. Con una combinación
-              de creatividad, estrategia y precisión técnica, desarrollo
-              soluciones que no solo funcionan, sino que destacan. Siempre en
-              busca de la próxima innovación.
+Ingeniero de Sistemas enfocado en Desarrollo Full Stack y Analítica de Datos. Especializado en la creación de aplicaciones escalables y la optimización de procesos operativos mediante el uso estratégico de la información y arquitecturas en la nube.
             </p>
 
             <div className="flex items-center gap-6">
